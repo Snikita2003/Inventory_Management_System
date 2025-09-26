@@ -62,5 +62,4 @@ public class Product {
 		this.stockQuantity = stockQuantity;
 	}
 
-	
 }

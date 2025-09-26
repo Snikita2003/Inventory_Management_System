@@ -43,32 +43,32 @@ public class ProductController {
 		}
 		return responce;
 	}
+
 	@PostMapping
 	public ResponseEntity<Responce> createProduct(@RequestBody Product product) {
-	    Responce responce = new Responce();
-	    try {
-	        if (product.getStockQuantity() >= 0) { 
-	            Product savedProduct = this.productService.createProduct(product);
-	            responce.setMsg("Product saved successfully");
-	            responce.setStatus("Success");
-	            responce.setHttpStatusCode(HttpStatus.CREATED.value());
-	            responce.setSingleProduct(savedProduct);
+		Responce responce = new Responce();
+		try {
+			if (product.getStockQuantity() >= 0) {
+				Product savedProduct = this.productService.createProduct(product);
+				responce.setMsg("Product saved successfully");
+				responce.setStatus("Success");
+				responce.setHttpStatusCode(HttpStatus.CREATED.value());
+				responce.setSingleProduct(savedProduct);
 
-	            return ResponseEntity.status(HttpStatus.CREATED).body(responce);
-	        } else {
-	            responce.setMsg("Stock quantity cannot be negative");
-	            responce.setStatus("Failed");
-	            responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
-	            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
-	        }
-	    } catch (Exception e) {
-	        responce.setMsg("Error with saving product");
-	        responce.setStatus("Failed");
-	        responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
-	    }
+				return ResponseEntity.status(HttpStatus.CREATED).body(responce);
+			} else {
+				responce.setMsg("Stock quantity cannot be negative");
+				responce.setStatus("Failed");
+				responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+				return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
+			}
+		} catch (Exception e) {
+			responce.setMsg("Error with saving product");
+			responce.setStatus("Failed");
+			responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
+		}
 	}
-
 
 	@DeleteMapping("/{prodId}")
 	public Responce deleteProduct(@PathVariable int prodId) {
@@ -107,48 +107,49 @@ public class ProductController {
 		return responce;
 
 	}
+
 	@PutMapping("/{prodId}/increase")
-	public ResponseEntity<Responce> increaseStock(@PathVariable int prodId, 
-	                                              @RequestParam(defaultValue = "0") int quantity) {
+	public ResponseEntity<Responce> increaseStock(@PathVariable int prodId,
+			@RequestParam(defaultValue = "0") int quantity) {
 
-	    Responce responce = new Responce();
+		Responce responce = new Responce();
 
-	    if (quantity < 0) {
-	        responce.setMsg("Error with Stock Quantity, Stock cannot be negative");
-	        responce.setStatus("Failed");
-	        responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
-	    }
+		if (quantity < 0) {
+			responce.setMsg("Error with Stock Quantity, Stock cannot be negative");
+			responce.setStatus("Failed");
+			responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
+		}
 
-	    Product updated = productService.increaseStock(prodId, quantity);
-	    responce.setMsg("Stock increased successfully");
-	    responce.setStatus("Success");
-	    responce.setHttpStatusCode(HttpStatus.OK.value());
-	    responce.setSingleProduct(updated);
+		Product updated = productService.increaseStock(prodId, quantity);
+		responce.setMsg("Stock increased successfully");
+		responce.setStatus("Success");
+		responce.setHttpStatusCode(HttpStatus.OK.value());
+		responce.setSingleProduct(updated);
 
-	    return ResponseEntity.ok(responce);
+		return ResponseEntity.ok(responce);
 	}
 
 	@PutMapping("/{prodId}/decrease")
-	public ResponseEntity<Responce> decreaseStock(@PathVariable int prodId, 
-	                                              @RequestParam(defaultValue = "0") int quantity) {
+	public ResponseEntity<Responce> decreaseStock(@PathVariable int prodId,
+			@RequestParam(defaultValue = "0") int quantity) {
 
-	    Responce responce = new Responce();
+		Responce responce = new Responce();
 
-	    if (quantity < 0) {
-	        responce.setMsg("Error with Stock Quantity, Stock cannot be negative");
-	        responce.setStatus("Failed");
-	        responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
-	        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
-	    }
+		if (quantity < 0) {
+			responce.setMsg("Error with Stock Quantity, Stock cannot be negative");
+			responce.setStatus("Failed");
+			responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responce);
+		}
 
-	    Product updated = productService.decreaseStock(prodId, quantity);
-	    responce.setMsg("Stock decreased successfully");
-	    responce.setStatus("Success");
-	    responce.setHttpStatusCode(HttpStatus.OK.value());
-	    responce.setSingleProduct(updated);
+		Product updated = productService.decreaseStock(prodId, quantity);
+		responce.setMsg("Stock decreased successfully");
+		responce.setStatus("Success");
+		responce.setHttpStatusCode(HttpStatus.OK.value());
+		responce.setSingleProduct(updated);
 
-	    return ResponseEntity.ok(responce);
+		return ResponseEntity.ok(responce);
 	}
 
 }
