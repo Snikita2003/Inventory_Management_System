@@ -88,25 +88,23 @@ public class ProductController {
 		return responce;
 
 	}
-
-	@PutMapping("/{prodId}")
+	@PutMapping(value = "/{prodId}")
 	public Responce updateProduct(@PathVariable int prodId, @RequestBody Product updatedProduct) {
-
-		Product pr = this.productService.updateProduct(prodId, updatedProduct);
-		Responce responce = new Responce();
-		try {
-			responce.setMsg("Product Updated successfully");
-			responce.setStatus("Success");
-			responce.setSingleProduct(pr);
-
-		} catch (Exception e) {
-			responce.setMsg("Error with updating product");
-			responce.setStatus("Failed");
-			responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
-		}
-		return responce;
-
+	    Responce responce = new Responce();
+	    try {
+	        Product pr = this.productService.updateProduct(prodId, updatedProduct);
+	        responce.setMsg("Product Updated successfully");
+	        responce.setStatus("Success");
+	        responce.setHttpStatusCode(HttpStatus.OK.value());
+	        responce.setSingleProduct(pr);
+	    }  catch (Exception e) {
+	        responce.setMsg("Error with updating product");
+	        responce.setStatus("Failed");
+	        responce.setHttpStatusCode(HttpStatus.BAD_REQUEST.value());
+	    }
+	    return responce;
 	}
+
 
 	@PutMapping("/{prodId}/increase")
 	public ResponseEntity<Responce> increaseStock(@PathVariable int prodId,
@@ -150,6 +148,18 @@ public class ProductController {
 		responce.setSingleProduct(updated);
 
 		return ResponseEntity.ok(responce);
+	}
+	
+	@GetMapping("/getLowStocks")
+	public Responce getLowStockAllProducts() {
+		
+		List<Product> allProduct=	this.productService.getLowStockAllProducts( 20 );
+		Responce responce = new Responce();
+		responce.setMsg("fetched all Low Stocks Products");
+		responce.setStatus("Success");
+		responce.setHttpStatusCode(HttpStatus.OK.value());
+		responce.setData(allProduct);
+		return responce;
 	}
 
 }

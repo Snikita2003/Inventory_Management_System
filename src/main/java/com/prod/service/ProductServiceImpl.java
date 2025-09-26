@@ -73,7 +73,7 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> getLowStockAllProducts(int qua) {
 
-		return this.productRepo.findByStockQuantityLessThan(5);
+		return this.productRepo.findByStockQuantityLessThan( qua );
 
 	}
 
