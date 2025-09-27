@@ -19,9 +19,9 @@ Endpoints to increase or decrease stock.
 Error handling for insufficient stock .
 2. Setup & Run Locally
 Prerequisites:
-Java 11 or greater
-Maven 3.6+
-MySQL Database
+Java 11 or greater  , 
+Maven 3.6+  ,
+MySQL Database  ,  
 Git
 
 Steps:
@@ -43,6 +43,50 @@ Build and run the project:->
 
 mvn clean install
 mvn spring-boot:run
+
+
+------------ Test API's---------------
+
+1. get All Products
+   http://localhost:8080/api/products    ->  GET Method
+   
+2. Save new Product
+   http://localhost:8080/api/products     ->  POST Method
+   Request Body->
+   
+{
+    "prodName": "Laptop Pro",
+    "description": "Upgraded Laptop",
+    "stockQuantity": 15
+}
+
+
+3. Delete Product By Id
+   http://localhost:8080/api/products/7    ->  DELETE Method
+
+4. Update Product
+   http://localhost:8080/api/products/7   -> PUT Method
+   Request Body->
+   {
+    "prodName": "Laptop Pro",
+    "description": "Upgraded Laptop",
+    "stockQuantity": 15
+   }
+
+5. Increase Stock Quantity
+ http://localhost:8080/api/products/7/increase?quantity=3   -> PUT Method
+
+6. Decrease Stock Quantity
+
+   http://localhost:8080/api/products/7/decrease?quantity=3     ->    PUT  Method
+
+7.  Get all Low stocks quantity
+   http://localhost:8080/api/products/getLowStocks    ->   GET Method
+
+   
+
+  
+   
 
 
 
