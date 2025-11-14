@@ -83,7 +83,13 @@ mvn spring-boot:run
 7.  Get all Low stocks quantity
    http://localhost:8080/api/products/getLowStocks    ->   GET Method
 
-   
+
+
+Project deplyed on railway->
+
+Public URL->
+
+https://inventorymanagementsystem-production-84d5.up.railway.app/api/products
 
   
    
